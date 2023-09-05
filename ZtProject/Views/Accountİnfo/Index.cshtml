@@ -1,1 +1,79 @@
-﻿<h2> Account Info</h2>
+﻿@model List<Account>
+
+    <div class="container">
+        <div class="row pt-4 pb-3">
+            <div class="col-6 ">
+                <h2 class="text-primary">
+                    Account List
+                </h2>
+            </div>
+
+            <div class="col-6 text-end">
+                <a asp-controller="Accountİnfo" asp-action="Create" class="btn btn-primary">
+                Create New Account <i class="bi bi-plus-square"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+<table class="table table-bordered table-striped">
+    
+    <thead>
+
+  
+    <tr>
+        <th>
+            Account Holder
+        </th>
+        <th>
+            IBAN
+        </th>
+        <th>
+            Account Type
+        </th>
+        <th>
+            Account Balance
+        </th>
+        <th>
+            Account Status
+        </th>
+        <th>
+            Opening Date
+        </th>
+
+    </tr>
+    </thead>
+    <tbody>
+        @foreach(var obj in Model.OrderBy(u=>u.AccountBalance))
+        {
+            
+       
+        <tr>
+            <td>
+                @obj.AccountHolder
+            </td>
+                <td>
+                    @obj.IBAN
+                </td>
+                <td>
+                    @obj.AccountHolder
+                </td>
+                <td>
+                    @obj.AccountType
+                </td>
+                <td>
+                    @obj.AccountBalance
+                </td>
+                <td>
+                    @obj.AccountStatus
+                </td>
+                <td>
+                    @obj.OpeningDate
+                </td>
+            
+        </tr>
+        }
+    </tbody>
+
+
+</table>

@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ZtProject.Models
 {
@@ -17,13 +20,17 @@ namespace ZtProject.Models
         public DateTime ClosingDate { get; set; }
 
         [Required]
+        [DisplayName("Account Holder")]
         public string AccountHolder { get; set; }
 
         [Required]
+        [DisplayName("Account Status")]
         public string AccountStatus { get; set; }
 
-       
 
+        [ForeignKey("AccountId")]
+        [ValidateNever]
+        public BankClient Client { get; set; }
 
 
     }

@@ -11,6 +11,7 @@ namespace ZtProject.Data
         }
 
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<BankClient> Clients { get; set; }
 
       
 
