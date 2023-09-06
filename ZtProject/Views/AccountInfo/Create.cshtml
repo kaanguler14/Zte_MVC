@@ -1,47 +1,68 @@
 ﻿@model Account
 
-<form method="post">
-    <div class="border bg-primary p-3 mt-4">
-        <div class="row pb-2">
-            <h2 class="text-white">Create Account</h2>
-            <hr />
-        </div>
-        <div class="mb-3 row p-1 text-light">
-            <label asp-for="AccountHolder" class="p-0"></label>
-            <input asp-for="AccountHolder"  class="form-control" />
-        </div>
-
-        <div class="mb-3 row p-1 text-light">
-            <label asp-for="AccountStatus" class="p-0"></label>
-            <select asp-for="AccountStatus" class="form-select" >
-                <option value="">Seçiniz</option>
-                <option >Active</option>
-                <option >Pasive</option></select>
-        </div>
-        <div class="mb-3 row p-1 text-light">
-            <label asp-for="AccountType" class="p-0"></label>
-            <select asp-for="AccountType" class="form-select">
-                <option value="">Seçiniz</option> 
-                <option >Deposite Account</option>
-                <option >MMA</option>
-                <option >Savings Account</option>
-            </select>
-        </div>
-        
+<div class="card shadow border-0 mt-4">
+    <div class="border border-primary card-header bg-white bg-gradient ml-0 py-3">
         <div class="row">
-            <div class="col-6 col-md-3">
-                <button type="submit" class="btn btn-secondary form-control">Create</button>
-            </div>
-            <div class="col-6 col-md-3">
-                <a asp-controller="AccountInfo" asp-action="Index" class="btn  btn-secondary form-control" >
-                    Back To List
-                </a>
+            <div class="col-12 text-center">
+                <h2 class="text-primary py-2">Create Account</h2>
             </div>
         </div>
-
-  
-
-
 
     </div>
-</form>
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <div class="border bg-primary p-3 mt-4">
+                <div class="row pb-2">
+                    <h2 class="text-white">Create Account</h2>
+                    <hr />
+                </div>
+                <div class="mb-3 row p-1 text-light">
+                    <label asp-for="AccountHolder" class="p-0"></label>
+                    <input asp-for="AccountHolder" class="form-control" />
+                </div>
+
+                <div class="mb-3 row p-1 text-light">
+                    <label asp-for="AccountStatus" class="p-0"></label>
+                    <select asp-for="AccountStatus" class="form-select">
+                        <option value="">Seçiniz</option>
+                        <option>Active</option>
+                        <option>Pasive</option>
+                    </select>
+                </div>
+                <div class="mb-3 row p-1 text-light">
+                    <label asp-for="AccountType" class="p-0"></label>
+                    <select asp-for="AccountType" class="form-select">
+                        <option value="">Seçiniz</option>
+                        <option>Deposite Account</option>
+                        <option>MMA</option>
+                        <option>Savings Account</option>
+                    </select>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-secondary form-control">Create</button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-controller="AccountInfo" asp-action="Index" class="btn  btn-secondary form-control">
+                            Back To List
+                        </a>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"/>
+    }
+}
