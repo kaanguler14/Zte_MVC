@@ -13,7 +13,19 @@
 
         <div class="mb-3 row p-1 text-light">
             <label asp-for="AccountStatus" class="p-0"></label>
-            <input asp-for="AccountStatus" class="form-control" />
+            <select asp-for="AccountStatus" class="form-select" >
+                <option value="">Seçiniz</option>
+                <option >Active</option>
+                <option >Pasive</option></select>
+        </div>
+        <div class="mb-3 row p-1 text-light">
+            <label asp-for="AccountType" class="p-0"></label>
+            <select asp-for="AccountType" class="form-select">
+                <option value="">Seçiniz</option> 
+                <option >Deposite Account</option>
+                <option >MMA</option>
+                <option >Savings Account</option>
+            </select>
         </div>
         
         <div class="row">
@@ -21,7 +33,7 @@
                 <button type="submit" class="btn btn-secondary form-control">Create</button>
             </div>
             <div class="col-6 col-md-3">
-                <a asp-controller="Accountİnfo" asp-action="Index" class="btn  btn-secondary form-control" >
+                <a asp-controller="AccountInfo" asp-action="Index" class="btn  btn-secondary form-control" >
                     Back To List
                 </a>
             </div>

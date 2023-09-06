@@ -1,6 +1,8 @@
 ﻿@model List<Account>
 
-    <div class="container">
+ <partial name="_Notification" />
+
+<div class="container">
         <div class="row pt-4 pb-3">
             <div class="col-6 ">
                 <h2 class="text-primary">
@@ -9,7 +11,7 @@
             </div>
 
             <div class="col-6 text-end">
-                <a asp-controller="Accountİnfo" asp-action="Create" class="btn btn-primary">
+                <a asp-controller="AccountInfo" asp-action="Create" class="btn btn-primary">
                 Create New Account <i class="bi bi-plus-square"></i>
                 </a>
             </div>
@@ -56,9 +58,6 @@
                     @obj.IBAN
                 </td>
                 <td>
-                    @obj.AccountHolder
-                </td>
-                <td>
                     @obj.AccountType
                 </td>
                 <td>
@@ -70,6 +69,16 @@
                 <td>
                     @obj.OpeningDate
                 </td>
+               <td>
+                   <div class="w-75 btnbtn-group" role="group">
+                       <a asp-controller="AccountInfo" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                            <i class="bi bi-pencil-square"></i> Edit
+                       </a>
+                       
+                   </div>
+
+
+               </td>
             
         </tr>
         }

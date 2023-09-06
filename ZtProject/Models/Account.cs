@@ -10,9 +10,11 @@ namespace ZtProject.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public string IBAN { get; set; }
+        [ValidateNever]
+        public string? IBAN { get; set; }
         [Required]
-        public string AccountType { get; set; }
+        [ValidateNever]
+        public string? AccountType { get; set; }
         [Required]
         public double AccountBalance { get; set; }
         [Required]
@@ -21,16 +23,18 @@ namespace ZtProject.Models
 
         [Required]
         [DisplayName("Account Holder")]
-        public string AccountHolder { get; set; }
+        [MinLength(1)]
+        public string? AccountHolder { get; set; }
 
         [Required]
         [DisplayName("Account Status")]
-        public string AccountStatus { get; set; }
+        [ValidateNever]
+        public string? AccountStatus { get; set; }
 
 
         [ForeignKey("AccountId")]
         [ValidateNever]
-        public BankClient Client { get; set; }
+        public BankClient? Client { get; set; }
 
 
     }
