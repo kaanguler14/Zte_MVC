@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ZtProject.Models;
 
-namespace ZtProject.Data
+namespace ZtProject.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {

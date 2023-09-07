@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ZtProject.Data;
+using ZtProject.DataAccess.Data;
 using ZtProject.Models;
 
 namespace ZtProject.Controllers

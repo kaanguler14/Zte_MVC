@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace ZtProject.Migrations
+namespace ZtProject.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddClientsTableToDb : Migration

@@ -2,87 +2,104 @@
 
  <partial name="_Notification" />
 
-<div class="container">
-        <div class="row pt-4 pb-3">
-            <div class="col-6 ">
-                <h2 class="text-primary">
-                    Account List
-                </h2>
-            </div>
+ <div class="card shadow border-0 mt-4">
+     <div class="card-header bg-primary bg-gradient ml-0 py-3">
+         <div class="row">
+           
+             <div class="col-12 text-center">
 
-            <div class="col-6 text-end">
-                <a asp-controller="AccountInfo" asp-action="Create" class="btn btn-primary">
-                Create New Account <i class="bi bi-plus-square"></i>
-                </a>
+                <h2 class="text-primary bg-white border-black shadow py-2"><i class="bi bi-card-list "></i> Account List </h2>
+
+             </div>
+         </div>
+         <div class="card-body p-0">
+            <div class="row pt-2 pb-3">
+                <div class="col-6 ">
+                  
+                </div>
+
+                <div class="col-6 text-end">
+                    <a asp-controller="AccountInfo" asp-action="Create" class="btn shadow btn-light text-primary">
+                        Create New Account <i class="bi bi-plus-square"></i>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
 
-<table class="table table-bordered table-striped">
-    
-    <thead>
+        <table class="table table-bordered table-striped ">
 
-  
-    <tr>
-        <th>
-            Account Holder
-        </th>
-        <th>
-            IBAN
-        </th>
-        <th>
-            Account Type
-        </th>
-        <th>
-            Account Balance
-        </th>
-        <th>
-            Account Status
-        </th>
-        <th>
-            Opening Date
-        </th>
-
-    </tr>
-    </thead>
-    <tbody>
-        @foreach(var obj in Model.OrderBy(u=>u.AccountBalance))
-        {
-            
-       
-        <tr>
-            <td>
-                @obj.AccountHolder
-            </td>
-                <td>
-                    @obj.IBAN
-                </td>
-                <td>
-                    @obj.AccountType
-                </td>
-                <td>
-                    @obj.AccountBalance
-                </td>
-                <td>
-                    @obj.AccountStatus
-                </td>
-                <td>
-                    @obj.OpeningDate
-                </td>
-               <td>
-                   <div class="w-75 btnbtn-group" role="group">
-                       <a asp-controller="AccountInfo" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
-                            <i class="bi bi-pencil-square"></i> Edit
-                       </a>
-                       
-                   </div>
+            <thead>
 
 
-               </td>
-            
-        </tr>
-        }
-    </tbody>
+                <tr>
+                    <th>
+                        Account Holder
+                    </th>
+                    <th>
+                        IBAN
+                    </th>
+                    <th>
+                        Account Type
+                    </th>
+                    <th>
+                        Account Balance
+                    </th>
+                    <th>
+                        Account Status
+                    </th>
+                    <th>
+                        Opening Date
+                    </th>
+                    <th>
+
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model.OrderBy(u => u.AccountBalance))
+                {
 
 
-</table>
+                    <tr>
+                        <td>
+                            @obj.AccountHolder
+                        </td>
+                        <td>
+                            @obj.IBAN
+                        </td>
+                        <td>
+                            @obj.AccountType
+                        </td>
+                        <td>
+                            @obj.AccountBalance
+                        </td>
+                        <td>
+                            @obj.AccountStatus
+                        </td>
+                        <td>
+                            @obj.OpeningDate
+                        </td>
+                        <td>
+                            <div class="w-75 btnbtn-group" role="group">
+                                <a asp-controller="AccountInfo" asp-action="Edit" asp-route-id="@obj.Id" class="btn shadow btn-primary mx-2">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </a>
+
+                            </div>
+
+
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+
+
+        </table>
+         </div>
+     </div>
+ </div>
+
+<div class="container"></div>
+     

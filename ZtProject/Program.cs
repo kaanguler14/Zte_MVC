@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using ZtProject.Data;
+using ZtProject.DataAccess.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

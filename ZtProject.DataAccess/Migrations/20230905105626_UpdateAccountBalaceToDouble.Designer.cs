@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ZtProject.Data;
+using ZtProject.DataAccess.Data;
 
 #nullable disable
 
-namespace ZtProject.Migrations
+namespace ZtProject.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230905085108_AddAccountTableToDb")]
-    partial class AddAccountTableToDb
+    [Migration("20230905105626_UpdateAccountBalaceToDouble")]
+    partial class UpdateAccountBalaceToDouble
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,8 +33,8 @@ namespace ZtProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AccountBalance")
-                        .HasColumnType("int");
+                    b.Property<double>("AccountBalance")
+                        .HasColumnType("float");
 
                     b.Property<string>("AccountHolder")
                         .IsRequired()
@@ -51,8 +51,9 @@ namespace ZtProject.Migrations
                     b.Property<DateTime>("ClosingDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IBAN")
-                        .HasColumnType("int");
+                    b.Property<string>("IBAN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("OpeningDate")
                         .HasColumnType("datetime2");

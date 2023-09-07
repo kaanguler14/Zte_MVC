@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ZtProject.DataAccess\ZtProject.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>

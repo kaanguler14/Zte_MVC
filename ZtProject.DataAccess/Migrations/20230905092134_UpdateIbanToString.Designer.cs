@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ZtProject.Data;
+using ZtProject.DataAccess.Data;
 
 #nullable disable
 
-namespace ZtProject.Migrations
+namespace ZtProject.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230905092134_UpdateIbanToString")]

@@ -1,56 +1,68 @@
 ﻿@model Account
 
-<form method="post">
-    <input asp-for="IBAN" hidden />
-    <input asp-for="OpeningDate" hidden />
-    <div class="border bg-primary p-3 mt-4">
-        <div class="row pb-2">
-            <h2 class="text-white">Edit Account</h2>
-            <hr />
-        </div>
-        <div class="mb-3 row p-1 text-light">
-            <label asp-for="AccountHolder" class="p-0"></label>
-            <input asp-for="AccountHolder" class="form-control" />
-            <span asp-validation-for="AccountHolder" class="text-dark"></span>
-        </div>
-
-    
-
-        <div class="mb-3 row p-1 text-light">
-            <label asp-for="AccountStatus" class="p-0"></label>
-            <select asp-for="AccountStatus" class="form-select">
-                <option >Seçiniz</option>
-                <option >Active</option>
-                <option >Pasive</option>
-            </select>
-        </div>
-        <div class="mb-3 row p-1 text-light">
-            <label asp-for="AccountType" class="p-0"></label>
-            <select asp-for="AccountType" class="form-select">
-                <option >Seçiniz</option>
-                <option >Deposite Account</option>
-                <option >MMA</option>
-                <option >Savings Account</option>
-            </select>
-        </div>
-
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-white bg-gradient ml-0 py-3">
         <div class="row">
-            <div class="col-6 col-md-3">
-                <button type="submit" class="btn btn-secondary form-control">Update</button>
+            <div class="shadow col-12 text-center">
+                <h2 class="text-primary py-2 card shadow ">Edit Account</h2>
             </div>
-            <div class="col-6 col-md-3">
-                <a asp-controller="AccountInfo" asp-action="Index" class="btn  btn-secondary form-control">
-                    Back To List
-                </a>
-            </div>
+
         </div>
+        <div class="card-body  p-4">
+            <form method="post">
+                <input asp-for="IBAN" hidden />
+                <input asp-for="OpeningDate" hidden />
+                <div class="border shadow border-black bg-primary p-3 mt-4">
+                   
+                    <div class="mb-3 row p-1 text-light">
+                        <label asp-for="AccountHolder" class="p-0"></label>
+                        <input asp-for="AccountHolder" class="form-control" />
+                        <span asp-validation-for="AccountHolder" class="text-dark"></span>
+                    </div>
+
+
+
+                    <div class="mb-3 row p-1 text-light">
+                        <label asp-for="AccountStatus" class="p-0"></label>
+                        <select asp-for="AccountStatus" class="form-select">
+                            <option>Seçiniz</option>
+                            <option>Active</option>
+                            <option>Pasive</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 row p-1 text-light">
+                        <label asp-for="AccountType" class="p-0"></label>
+                        <select asp-for="AccountType" class="form-select">
+                            <option>Seçiniz</option>
+                            <option>Deposite Account</option>
+                            <option>MMA</option>
+                            <option>Savings Account</option>
+                        </select>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-6 col-md-3">
+                            <button type="submit" class="btn btn-secondary form-control">Update</button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a asp-controller="AccountInfo" asp-action="Index" class="btn  btn-secondary form-control">
+                                Back To List
+                            </a>
+                        </div>
+                    </div>
 
 
 
 
 
+                </div>
+            </form>
+        </div>
     </div>
-</form>
+
+</div>
+
+
 
 @section Scripts{
     @{
