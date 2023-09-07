@@ -2,8 +2,10 @@
 using System.Diagnostics;
 using ZtProject.Models;
 
-namespace ZtProject.Controllers
+namespace ZtProject.Areas.Customer.Controllers
 {
+
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
+
     <header>
+
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">Ziraat Bankası <i class="bi bi-cash-coin"></i></a>
@@ -24,15 +26,17 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Home" asp-action="privacy">Privacy</a>
+                            <a class="nav-link text-white" asp-area="Customer" asp-controller="Home" asp-action="privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white"  asp-controller="AccountInfo" asp-action="Index">My Account</a>
+                            <a class="nav-link text-white" asp-area="Admin" asp-controller="AccountInfo" asp-action="Index">My Account</a>
                         </li>
+
                     </ul>
+
                 </div>
             </div>
         </nav>

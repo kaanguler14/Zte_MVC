@@ -1,20 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ZtProject.DataAccess.Data;
+using ZtProject.DataAccess.Repository.IRepository;
 using ZtProject.Models;
 
-namespace ZtProject.Controllers
+namespace ZtProject.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class AccountInfoController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public AccountInfoController(ApplicationDbContext db)
+        private readonly IUnitOfWork _unitOfWork;
+        public AccountInfoController(IUnitOfWork unitOfWork)
         {
-            _db = db;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            List<Account> objAccountList = _db.Accounts.ToList();
+            List<Account> objAccountList = _unitOfWork.Account.GetAll().ToList();
 
             return View(objAccountList);
         }
@@ -26,15 +28,15 @@ namespace ZtProject.Controllers
         [HttpPost]
         public IActionResult Create(Account obj)
         {
-       
 
-          
 
-          Random rand = new Random();
+
+
+            Random rand = new Random();
             var RandomInt64 = new Random();
-       
+
             string countryCode = "TR"; // Replace with the appropriate country code
-            string bankCode = rand.Next(1000,9999).ToString(); // Replace with the bank code
+            string bankCode = rand.Next(1000, 9999).ToString(); // Replace with the bank code
 
             string accountNumber = RandomInt64.NextInt64(100000000000, 999999999999).ToString(); // Replace with the account number
 
@@ -48,29 +50,29 @@ namespace ZtProject.Controllers
 
             if (ModelState.IsValid)
             {
-                _db.Accounts.Add(obj);
-                _db.SaveChanges();
+                _unitOfWork.Account.Add(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Category Creaeted Successfully";
                 return RedirectToAction("Index");
             }
 
             return View();
-          
-            
+
+
         }
 
         public IActionResult Edit(int? id)
         {
-            if (id==null || id==0) 
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
 
-            Account AccountFromDb = _db.Accounts.Find(id);
+            Account AccountFromDb = _unitOfWork.Account.Get(u => u.Id == id);
             if (AccountFromDb == null)
             {
                 return NotFound();
-            } 
+            }
 
             return View(AccountFromDb);
         }
@@ -79,11 +81,11 @@ namespace ZtProject.Controllers
         public IActionResult Edit(Account obj)
         {
 
-       
+
             if (ModelState.IsValid)
             {
-                _db.Accounts.Update(obj);
-                _db.SaveChanges();
+                _unitOfWork.Account.Update(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Category Updated Successfully";
                 return RedirectToAction("Index");
             }
@@ -93,7 +95,7 @@ namespace ZtProject.Controllers
 
         }
 
-       
+
 
         static string GenerateIBAN(string countryCode, string bankCode, string accountNumber)
         {
@@ -104,7 +106,7 @@ namespace ZtProject.Controllers
             int modulo = 0;
             foreach (char c in fullNumber)
             {
-                int digit = Char.IsDigit(c) ? (c - '0') : (c - 'A' + 10);
+                int digit = char.IsDigit(c) ? c - '0' : c - 'A' + 10;
                 modulo = (10 * modulo + digit) % 97;
             }
 
