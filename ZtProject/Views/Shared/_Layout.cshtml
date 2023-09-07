@@ -15,7 +15,6 @@
 <body>
 
     <header>
-
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">Ziraat Bankası <i class="bi bi-cash-coin"></i></a>
@@ -31,10 +30,32 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="Customer" asp-controller="Home" asp-action="privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="Admin" asp-controller="AccountInfo" asp-action="Index">My Account</a>
+                       
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Operations
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="AccountInfo" asp-action="Index">My Account</a>
+                                </li>
+                                <li><a class="dropdown-item text-dark" href="#">Account Analyze</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-dark" href="#">My Credit Card</a></li>
+                            </ul>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Client Management
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="AccountInfo" asp-action="Index">My Account</a>
+                                </li>
+                                <li><a class="dropdown-item text-dark" href="#">Account Info</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-dark" href="#">My Credit Card</a></li>
+                            </ul>
                         </li>
-
                     </ul>
 
                 </div>

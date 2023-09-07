@@ -20,33 +20,3 @@ html {
 body {
   margin-bottom: 60px;
 }
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: -250px;
-    width: 250px;
-    height: 100%;
-    background-color: #333;
-    transition: left 0.3s ease-in-out;
-}
-
-.sidebar-content {
-    padding: 20px;
-    color: #fff;
-}
-
-.toggle-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 20px;
-    z-index: 1;
-}
-
-.sidebar.active {
-    left: 0;
-}
