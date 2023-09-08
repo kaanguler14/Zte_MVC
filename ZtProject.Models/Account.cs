@@ -31,10 +31,11 @@ namespace ZtProject.Models
         [ValidateNever]
         public string? AccountStatus { get; set; }
 
+        public string ClientId { get; set; }
 
-        [ForeignKey("AccountId")]
-        [ValidateNever]
-        public BankClient? Client { get; set; }
+
+        [ForeignKey("ClientId")]
+        public BankClient Client { get; set; }
 
 
     }

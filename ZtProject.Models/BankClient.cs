@@ -1,10 +1,12 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Net.Mail;
 
 namespace ZtProject.Models
 {
-    public class BankClient
+    public class BankClient 
     {
 
         [Key]
@@ -29,5 +31,7 @@ namespace ZtProject.Models
         public string? City { get; set; }
         public string? State { get; set; }
         public string? PostalCode { get; set; }
+
+      
     }
 }

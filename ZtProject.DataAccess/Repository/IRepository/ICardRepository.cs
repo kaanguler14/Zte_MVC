@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZtProject.Models;
 
 namespace ZtProject.DataAccess.Repository.IRepository
 {
-    public interface IUnitOfWork
+    public interface ICardRepository :IRepository<Card>
     {
-        IAccountRepository Account { get; }
-        ICardRepository Card { get; }
-        ICardHistoryRepository CardHistory { get; }
-  
+        void Update(Card obj);
 
-        void Save();
 
     }
 }

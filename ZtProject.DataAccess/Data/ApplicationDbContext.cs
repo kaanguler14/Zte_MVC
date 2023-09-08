@@ -12,6 +12,8 @@ namespace ZtProject.DataAccess.Data
 
         public DbSet<Account> Accounts { get; set; }
         public DbSet<BankClient> Clients { get; set; }
+        public DbSet<Card> Card { get; set; }
+        public DbSet<CardHistory> CardHistory { get; set; }
 
       
 

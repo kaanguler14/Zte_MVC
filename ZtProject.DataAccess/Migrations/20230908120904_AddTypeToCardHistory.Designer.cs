@@ -12,8 +12,8 @@ using ZtProject.DataAccess.Data;
 namespace ZtProject.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230905123504_UpdateClient")]
-    partial class UpdateClient
+    [Migration("20230908120904_AddTypeToCardHistory")]
+    partial class AddTypeToCardHistory
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,9 +40,6 @@ namespace ZtProject.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AccountId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("AccountStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -50,6 +47,10 @@ namespace ZtProject.DataAccess.Migrations
                     b.Property<string>("AccountType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("ClosingDate")
                         .HasColumnType("datetime2");
@@ -63,7 +64,7 @@ namespace ZtProject.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("ClientId");
 
                     b.ToTable("Accounts");
                 });
@@ -110,13 +111,96 @@ namespace ZtProject.DataAccess.Migrations
                     b.ToTable("Clients");
                 });
 
+            modelBuilder.Entity("ZtProject.Models.Card", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BankClientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("number")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankClientId");
+
+                    b.ToTable("Card");
+                });
+
+            modelBuilder.Entity("ZtProject.Models.CardHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<long>("Amount")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("CardId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PlaceName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CardId");
+
+                    b.ToTable("CardHistory");
+                });
+
             modelBuilder.Entity("ZtProject.Models.Account", b =>
                 {
                     b.HasOne("ZtProject.Models.BankClient", "Client")
                         .WithMany()
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("ZtProject.Models.Card", b =>
+                {
+                    b.HasOne("ZtProject.Models.BankClient", "BankClient")
+                        .WithMany()
+                        .HasForeignKey("BankClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BankClient");
+                });
+
+            modelBuilder.Entity("ZtProject.Models.CardHistory", b =>
+                {
+                    b.HasOne("ZtProject.Models.Card", "Card")
+                        .WithMany()
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Card");
                 });
 #pragma warning restore 612, 618
         }
