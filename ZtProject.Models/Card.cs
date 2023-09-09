@@ -19,6 +19,8 @@ namespace ZtProject.Models
         [Required]
         public string number { get; set; }
 
+        public long limit { get; set; } 
+
       
         public string BankClientId { get; set; }
 

@@ -16,25 +16,25 @@ namespace ZtProject.Models
         [ValidateNever]
         public string? AccountType { get; set; }
         [Required]
+        [ValidateNever]
         public double AccountBalance { get; set; }
+        [ValidateNever]
         [Required]
         public DateTime OpeningDate { get; set; }
-        public DateTime ClosingDate { get; set; }
+        public DateTime? ClosingDate { get; set; }
 
-        [Required]
-        [DisplayName("Account Holder")]
-        [MinLength(1)]
-        public string? AccountHolder { get; set; }
+       
 
         [Required]
         [DisplayName("Account Status")]
         [ValidateNever]
         public string? AccountStatus { get; set; }
-
+       
         public string ClientId { get; set; }
 
-
+       
         [ForeignKey("ClientId")]
+        [ValidateNever]
         public BankClient Client { get; set; }
 
 

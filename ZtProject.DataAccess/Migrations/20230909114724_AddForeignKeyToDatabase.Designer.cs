@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZtProject.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using ZtProject.DataAccess.Data;
 namespace ZtProject.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230909114724_AddForeignKeyToDatabase")]
+    partial class AddForeignKeyToDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +45,6 @@ namespace ZtProject.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClientId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ClosingDate")
@@ -70,7 +72,7 @@ namespace ZtProject.DataAccess.Migrations
                             AccountType = "MMA",
                             ClientId = "19722290612",
                             IBAN = "TR1477895786321484635789631",
-                            OpeningDate = new DateTime(2023, 9, 9, 22, 26, 1, 422, DateTimeKind.Local).AddTicks(3056)
+                            OpeningDate = new DateTime(2023, 9, 9, 14, 47, 24, 320, DateTimeKind.Local).AddTicks(5218)
                         });
                 });
 
@@ -122,7 +124,7 @@ namespace ZtProject.DataAccess.Migrations
                             City = "Bolu",
                             MailAddress = "kaangulergs@gmail.com",
                             Name = "Kaan",
-                            Number = "3684",
+                            Number = "6074",
                             Password = "password",
                             PostalCode = "14100",
                             State = "Center",
@@ -168,14 +170,6 @@ namespace ZtProject.DataAccess.Migrations
                             Name = "Bankkart",
                             limit = 10000L,
                             number = "8975050006755148"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BankClientId = "19722290612",
-                            Name = "Bankkart",
-                            limit = 10000L,
-                            number = "7355051246755148"
                         });
                 });
 
@@ -219,15 +213,6 @@ namespace ZtProject.DataAccess.Migrations
                             Date = new DateTime(2023, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PlaceName = "Yemek Sepeti",
                             Type = "Food"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Amount = 200L,
-                            CardId = 2,
-                            Date = new DateTime(2023, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PlaceName = "Migros ",
-                            Type = "Market"
                         });
                 });
 
@@ -235,9 +220,7 @@ namespace ZtProject.DataAccess.Migrations
                 {
                     b.HasOne("ZtProject.Models.BankClient", "Client")
                         .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClientId");
 
                     b.Navigation("Client");
                 });

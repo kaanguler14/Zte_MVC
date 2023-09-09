@@ -1,0 +1,76 @@
+﻿@model List<CardHistory>
+
+<partial name="_Notification" />
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-primary bg-gradient ml-0 py-3">
+        <div class="row">
+
+            <div class="col-12 text-center">
+
+                <h2 class="text-primary bg-white border-black shadow py-2"><i class="bi bi-card-list "></i> Card History </h2>
+
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="row pt-2 pb-3">
+                <div class="col-6 ">
+                </div>
+
+
+            </div>
+        </div>
+
+        <table class="table table-bordered table-striped ">
+
+            <thead>
+
+
+                <tr>
+                    <th>
+                        Place Name
+                    </th>
+                    <th>
+                        Date
+                    </th>
+
+                    <th>
+                        Amount
+                    </th>
+                    <th>
+                        Type
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+
+
+                    <tr>
+                        <td>
+                            @obj.PlaceName
+                        </td>
+                        <td>
+                            @obj.Date
+                        </td>
+                        <td>
+                            @obj.Amount
+                        </td>
+                        <td>
+                            @obj.Type
+                        </td>
+
+
+                    </tr>
+                }
+            </tbody>
+
+
+        </table>
+    </div>
+</div>
+
+
+<div class="container"></div>

@@ -16,9 +16,15 @@ namespace ZtProject.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            List<Card> objAccountList = _unitOfWork.Card.GetAll().ToList();
+            List<Card> objCardList = _unitOfWork.Card.GetAll().ToList();
 
-            return View(objAccountList);
+            return View(objCardList);
+        }
+        public IActionResult Details()
+        {
+            List<CardHistory> objCardHistoryList = _unitOfWork.CardHistory.GetAll().ToList();
+
+            return View(objCardHistoryList);
         }
         public IActionResult Create()
         {
