@@ -12,8 +12,8 @@ using ZtProject.DataAccess.Data;
 namespace ZtProject.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230909192601_addNewDataToCardTable")]
-    partial class addNewDataToCardTable
+    [Migration("20230910121551_Nullablemail")]
+    partial class Nullablemail
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,9 +44,8 @@ namespace ZtProject.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ClientId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("ClientId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime?>("ClosingDate")
                         .HasColumnType("datetime2");
@@ -71,16 +70,19 @@ namespace ZtProject.DataAccess.Migrations
                             AccountBalance = 0.0,
                             AccountStatus = "Passive",
                             AccountType = "MMA",
-                            ClientId = "19722290612",
+                            ClientId = 19722290612L,
                             IBAN = "TR1477895786321484635789631",
-                            OpeningDate = new DateTime(2023, 9, 9, 22, 26, 1, 422, DateTimeKind.Local).AddTicks(3056)
+                            OpeningDate = new DateTime(2023, 9, 10, 15, 15, 51, 558, DateTimeKind.Local).AddTicks(1198)
                         });
                 });
 
             modelBuilder.Entity("ZtProject.Models.BankClient", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -121,11 +123,11 @@ namespace ZtProject.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "19722290612",
+                            Id = 19722290612L,
                             City = "Bolu",
                             MailAddress = "kaangulergs@gmail.com",
                             Name = "Kaan",
-                            Number = "3684",
+                            Number = "9984",
                             Password = "password",
                             PostalCode = "14100",
                             State = "Center",
@@ -142,9 +144,8 @@ namespace ZtProject.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BankClientId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("BankClientId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -167,7 +168,7 @@ namespace ZtProject.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            BankClientId = "19722290612",
+                            BankClientId = 19722290612L,
                             Name = "Bankkart",
                             limit = 10000L,
                             number = "8975050006755148"
@@ -175,7 +176,7 @@ namespace ZtProject.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            BankClientId = "19722290612",
+                            BankClientId = 19722290612L,
                             Name = "Bankkart",
                             limit = 10000L,
                             number = "7355051246755148"

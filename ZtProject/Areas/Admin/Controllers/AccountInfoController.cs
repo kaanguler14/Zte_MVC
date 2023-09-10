@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ZtProject.DataAccess.Data;
 using ZtProject.DataAccess.Repository.IRepository;
 using ZtProject.Models;
@@ -17,6 +18,13 @@ namespace ZtProject.Areas.Admin.Controllers
         public IActionResult Index()
         {
             List<Account> objAccountList = _unitOfWork.Account.GetAll().ToList();
+
+            IEnumerable<SelectListItem> ClientList = _unitOfWork.BankClient.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+
 
             return View(objAccountList);
         }
@@ -45,8 +53,7 @@ namespace ZtProject.Areas.Admin.Controllers
             obj.IBAN = iban;
             obj.AccountBalance = 0;
             obj.OpeningDate = DateTime.Now;
-            obj.AccountType = "Deposit";
-            obj.AccountStatus = "passive";
+           
 
             if (ModelState.IsValid)
             {

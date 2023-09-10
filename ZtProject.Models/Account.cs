@@ -13,7 +13,7 @@ namespace ZtProject.Models
         [ValidateNever]
         public string? IBAN { get; set; }
         [Required]
-        [ValidateNever]
+        
         public string? AccountType { get; set; }
         [Required]
         [ValidateNever]
@@ -27,12 +27,11 @@ namespace ZtProject.Models
 
         [Required]
         [DisplayName("Account Status")]
-        [ValidateNever]
+      
         public string? AccountStatus { get; set; }
        
-        public string ClientId { get; set; }
 
-       
+        public long ClientId { get; set; }
         [ForeignKey("ClientId")]
         [ValidateNever]
         public BankClient Client { get; set; }

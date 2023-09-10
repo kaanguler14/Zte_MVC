@@ -12,8 +12,8 @@ using ZtProject.DataAccess.Data;
 namespace ZtProject.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230908120904_AddTypeToCardHistory")]
-    partial class AddTypeToCardHistory
+    [Migration("20230910120324_TablesToDatabase")]
+    partial class TablesToDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,10 +36,6 @@ namespace ZtProject.DataAccess.Migrations
                     b.Property<double>("AccountBalance")
                         .HasColumnType("float");
 
-                    b.Property<string>("AccountHolder")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("AccountStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -48,11 +44,10 @@ namespace ZtProject.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ClientId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("ClientId")
+                        .HasColumnType("bigint");
 
-                    b.Property<DateTime>("ClosingDate")
+                    b.Property<DateTime?>("ClosingDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("IBAN")
@@ -67,12 +62,27 @@ namespace ZtProject.DataAccess.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("Accounts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccountBalance = 0.0,
+                            AccountStatus = "Passive",
+                            AccountType = "MMA",
+                            ClientId = 19722290612L,
+                            IBAN = "TR1477895786321484635789631",
+                            OpeningDate = new DateTime(2023, 9, 10, 15, 3, 24, 449, DateTimeKind.Local).AddTicks(7817)
+                        });
                 });
 
             modelBuilder.Entity("ZtProject.Models.BankClient", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -109,6 +119,21 @@ namespace ZtProject.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Clients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 19722290612L,
+                            City = "Bolu",
+                            MailAddress = "kaangulergs@gmail.com",
+                            Name = "Kaan",
+                            Number = "2754",
+                            Password = "password",
+                            PostalCode = "14100",
+                            State = "Center",
+                            StreetAdress = "Çıkınlar",
+                            Surname = "Güler"
+                        });
                 });
 
             modelBuilder.Entity("ZtProject.Models.Card", b =>
@@ -119,13 +144,15 @@ namespace ZtProject.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BankClientId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("BankClientId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("limit")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("number")
                         .IsRequired()
@@ -136,6 +163,24 @@ namespace ZtProject.DataAccess.Migrations
                     b.HasIndex("BankClientId");
 
                     b.ToTable("Card");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BankClientId = 19722290612L,
+                            Name = "Bankkart",
+                            limit = 10000L,
+                            number = "8975050006755148"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BankClientId = 19722290612L,
+                            Name = "Bankkart",
+                            limit = 10000L,
+                            number = "7355051246755148"
+                        });
                 });
 
             modelBuilder.Entity("ZtProject.Models.CardHistory", b =>
@@ -168,6 +213,26 @@ namespace ZtProject.DataAccess.Migrations
                     b.HasIndex("CardId");
 
                     b.ToTable("CardHistory");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 145L,
+                            CardId = 1,
+                            Date = new DateTime(2023, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PlaceName = "Yemek Sepeti",
+                            Type = "Food"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 200L,
+                            CardId = 2,
+                            Date = new DateTime(2023, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PlaceName = "Migros ",
+                            Type = "Market"
+                        });
                 });
 
             modelBuilder.Entity("ZtProject.Models.Account", b =>

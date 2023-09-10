@@ -13,6 +13,7 @@ namespace ZtProject.DataAccess.Repository
         public IAccountRepository Account { get; private set; }
         public ICardRepository Card { get; private set; }
         public ICardHistoryRepository CardHistory { get; private set; }
+        public IBankClientRepository BankClient { get; private set; }
         private ApplicationDbContext _db;
         public UnitOfWork(ApplicationDbContext db) 
         {
@@ -20,6 +21,8 @@ namespace ZtProject.DataAccess.Repository
             Account = new AccountRepository(_db);
             Card = new CardRepository(_db);
             CardHistory = new CardHistoryRepository(_db);
+            BankClient = new BankClientRepository(_db);
+
         }
 
         public void Save()

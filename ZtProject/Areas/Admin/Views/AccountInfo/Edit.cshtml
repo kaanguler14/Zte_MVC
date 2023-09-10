@@ -14,6 +14,9 @@
                 <input asp-for="OpeningDate" hidden />
                 <input asp-for="AccountStatus" hidden />
                 <input asp-for="AccountType" hidden />
+                <input asp-for="ClientId" hidden />
+                <input asp-for="Client" hidden />
+                <input asp-for="Client.MailAddress" hidden />
                 <div class="border shadow border-black bg-primary p-3 mt-4">
                    
                     <div class="mb-3 row p-1 text-light">
@@ -35,7 +38,7 @@
                     <div class="mb-3 row p-1 text-light">
                         <label asp-for="AccountType" class="p-0"></label>
                         <select asp-for="AccountType" class="form-select">
-                            <option>Seçiniz</option>
+                            <option disabled>Seçiniz</option>
                             <option>Deposite Account</option>
                             <option>MMA</option>
                             <option>Savings Account</option>

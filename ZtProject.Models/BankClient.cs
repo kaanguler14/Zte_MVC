@@ -11,7 +11,7 @@ namespace ZtProject.Models
 
         [Key]
         [DisplayName("Citizen Number")]
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         [Required]
         public string Password { get; set; }    
@@ -20,7 +20,7 @@ namespace ZtProject.Models
         public string Number { get; set; }
 
         [Required]
-        public string MailAddress { get; set; }
+        public string ? MailAddress { get; set; }
 
         [Required]
         public string Name { get; set; }

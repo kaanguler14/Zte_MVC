@@ -22,9 +22,9 @@ namespace ZtProject.Models
         public long limit { get; set; } 
 
       
-        public string BankClientId { get; set; }
-
+        public long BankClientId { get; set; }
         [ForeignKey("BankClientId")]
+        [ValidateNever]
         public BankClient BankClient { get; set; }
 
         

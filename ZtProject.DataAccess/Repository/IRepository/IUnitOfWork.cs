@@ -11,6 +11,8 @@ namespace ZtProject.DataAccess.Repository.IRepository
         IAccountRepository Account { get; }
         ICardRepository Card { get; }
         ICardHistoryRepository CardHistory { get; }
+
+        IBankClientRepository BankClient { get; }
   
 
         void Save();
