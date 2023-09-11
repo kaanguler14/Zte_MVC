@@ -21,7 +21,19 @@ namespace ZtProject.DataAccess.Repository
 
         public void Update(Account obj)
         {
-            _db.Accounts.Update(obj);
+            var objFromDb =_db.Accounts.FirstOrDefault(u => u.Id == obj.Id);
+
+            if (objFromDb != null) {
+                objFromDb.AccountBalance = obj.AccountBalance;
+                objFromDb.AccountStatus = obj.AccountStatus;
+                objFromDb.AccountType = obj.AccountType;
+                objFromDb.OpeningDate = obj.OpeningDate;
+                objFromDb.ClosingDate = obj.ClosingDate;
+                objFromDb.ClientId = obj.ClientId;  
+            }
+
+
+          
         }
     }
 }

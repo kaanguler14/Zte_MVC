@@ -28,8 +28,8 @@ namespace ZtProject.DataAccess.Data
                );
 
             modelBuilder.Entity<Card>().HasData(
-               new Card { Id = 1, Name = "Bankkart", limit=10000,number = "8975050006755148", BankClientId = 19722290612 },
-               new Card { Id = 2, Name = "Bankkart", limit=10000,number = "7355051246755148", BankClientId = 19722290612 }
+               new Card { Id = 1, Name = "Bankkart", limit=10000,number = "8975050006755148", BankClientId = 19722290612,ImageUrl="" },
+               new Card { Id = 2, Name = "Bankkart", limit=10000,number = "7355051246755148", BankClientId = 19722290612 , ImageUrl = ""}
                );
             modelBuilder.Entity<CardHistory>().HasData(
                new CardHistory { Id = 1, PlaceName = "Yemek Sepeti", Date = new DateTime(2023,8,25), Amount = 145,Type="Food",CardId=1 },

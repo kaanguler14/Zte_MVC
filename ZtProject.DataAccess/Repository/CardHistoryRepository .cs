@@ -21,7 +21,19 @@ namespace ZtProject.DataAccess.Repository
 
         public void Update(CardHistory obj)
         {
-            _db.CardHistory.Update(obj);
+            var objFromDb = _db.CardHistory.FirstOrDefault(u => u.Id == obj.Id);
+
+            if (objFromDb != null)
+            {
+
+                objFromDb.Date = obj.Date;
+                objFromDb.CardId = obj.CardId;
+                objFromDb.Id = obj.Id;
+                objFromDb.PlaceName = obj.PlaceName;
+                objFromDb.Amount = obj.Amount;
+                objFromDb.Type = obj.Type;
+
+            }
         }
     }
 }

@@ -17,13 +17,9 @@ namespace ZtProject.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            List<Account> objAccountList = _unitOfWork.Account.GetAll().ToList();
+            List<Account> objAccountList = _unitOfWork.Account.GetAll(includeProperties:"Client").ToList();
 
-            IEnumerable<SelectListItem> ClientList = _unitOfWork.BankClient.GetAll().Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            });
+         
 
 
             return View(objAccountList);
@@ -75,7 +71,7 @@ namespace ZtProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            Account AccountFromDb = _unitOfWork.Account.Get(u => u.Id == id);
+            Account AccountFromDb = _unitOfWork.Account.Get(u => u.Id == id, includeProperties: "Client");
             if (AccountFromDb == null)
             {
                 return NotFound();
@@ -91,6 +87,7 @@ namespace ZtProject.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                Console.WriteLine(obj.Client.MailAddress);
                 _unitOfWork.Account.Update(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "Category Updated Successfully";

@@ -27,6 +27,8 @@ namespace ZtProject.Models
         [ValidateNever]
         public BankClient BankClient { get; set; }
 
+        public string ImageUrl { get; set; }
+
         
     }
 }

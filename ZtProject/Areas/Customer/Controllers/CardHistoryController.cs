@@ -13,10 +13,22 @@ namespace ZtProject.Areas.Customer.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
-            List<CardHistory> objCardHistoryList = _unitOfWork.CardHistory.GetAll().ToList();
-            return View(objCardHistoryList);
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            List<CardHistory> CardHistoryFromDb = _unitOfWork.CardHistory.GetAll(u => u.Id == id, includeProperties: "Card").ToList();
+            if (CardHistoryFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(CardHistoryFromDb);
+          
+        
         }
     }
 }

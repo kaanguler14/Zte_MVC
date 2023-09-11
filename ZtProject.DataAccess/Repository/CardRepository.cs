@@ -21,7 +21,17 @@ namespace ZtProject.DataAccess.Repository
 
         public void Update(Card obj)
         {
-            _db.Card.Update(obj);
+            var objFromDb = _db.Card.FirstOrDefault(u => u.Id == obj.Id);
+
+          if (objFromDb != null) {
+
+                objFromDb.number = obj.number;
+                objFromDb.BankClientId = obj.BankClientId;
+                objFromDb.limit = obj.limit;
+                objFromDb.Id = obj.Id;
+                objFromDb.Name = obj.Name;
+             
+            }
         }
     }
 }
