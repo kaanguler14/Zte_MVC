@@ -87,7 +87,7 @@ namespace ZtProject.Areas.Customer.Controllers
 
             if (ModelState.IsValid)
             {
-                Console.WriteLine(obj.Client.MailAddress);
+               
                 _unitOfWork.Account.Update(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "Category Updated Successfully";

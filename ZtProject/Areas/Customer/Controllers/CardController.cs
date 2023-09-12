@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ZtProject.DataAccess.Data;
 using ZtProject.DataAccess.Repository.IRepository;
 using ZtProject.Models;
@@ -97,6 +98,41 @@ namespace ZtProject.Areas.Customer.Controllers
 
         }
 
+        public IActionResult ChangeValue(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            Account CardFromDb = _unitOfWork.Account.Get(u => u.Id == id, includeProperties: "Client");
+            if (CardFromDb == null)
+            {
+                return NotFound();
+            }
+            CardFromDb.Client.CardRequest = true;
+
+            return View(Index);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeValue(Card obj)
+        {
+            obj.BankClient.CardRequest =true;
+
+            if (ModelState.IsValid)
+            {
+
+                _unitOfWork.Card.Update(obj);
+                _unitOfWork.Save();
+                TempData["success"] = "Category Updated Successfully";
+                return RedirectToAction("Index");
+            }
+
+            return View("Index");
+
+
+        }
 
 
         static string GenerateNumber( string bankCode, string accountNumber)

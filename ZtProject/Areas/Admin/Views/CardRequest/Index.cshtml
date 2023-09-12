@@ -1,4 +1,4 @@
-﻿@model List<Account>
+﻿@model List<Card>
 
 <partial name="_Notification" />
 
@@ -63,29 +63,29 @@
 
                     <tr>
                         <td>
-                            @obj.Client.Name
+                            @obj.BankClient.Name
                         </td>
                         <td>
-                            @obj.Client.Surname
+                            @obj.BankClient.Surname
                         </td>
                         <td>
-                            @obj.Client.Id
+                            @obj.BankClient.Id
                         </td>
                         <td>
-                            @obj.Client.MailAddress
+                            @obj.BankClient.MailAddress
                         </td>
                        
                         <td>
-                            @obj.Client.City
+                            @obj.BankClient.City
                         </td>
                         <td>
-                            @obj.Client.CardRequest
+                            @obj.BankClient.CardRequest
                         </td>
                       
                         <td>
                             <div class="w-75  btn-group" role="group">
                                 <a asp-controller="CardRequest" asp-action="Create" asp-route-id="@obj.Id" class="btn shadow btn-primary mx-2">
-                                    <i class="bi bi-pencil-square"></i> Edit
+                                    <i class="bi bi-pencil-square"></i> Create
                                 </a>
 
                             </div>

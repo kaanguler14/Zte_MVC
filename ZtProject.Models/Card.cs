@@ -17,6 +17,7 @@ namespace ZtProject.Models
         [Required]
         public string Name { get; set; }
         [Required]
+        [ValidateNever]
         public string number { get; set; }
 
         public long limit { get; set; } 
