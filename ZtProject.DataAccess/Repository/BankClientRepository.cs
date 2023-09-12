@@ -21,7 +21,24 @@ namespace ZtProject.DataAccess.Repository
 
         public void Update(BankClient obj)
         {
-            _db.Clients.Update(obj);
+            var objFromDb = _db.Clients.FirstOrDefault(u => u.Id == obj.Id);
+
+            if (objFromDb != null)
+            {
+
+                objFromDb.StreetAdress = obj.StreetAdress;
+                objFromDb.MailAddress = obj.MailAddress;
+                objFromDb.Password = obj.Password;
+                objFromDb.City = obj.City;
+                objFromDb.CardRequest = obj.CardRequest;
+                objFromDb.Id = obj.Id;
+                objFromDb.Surname = obj.Surname;
+                objFromDb.Number = obj.Number;
+                objFromDb.PostalCode = obj.PostalCode;
+                objFromDb.State = obj.State;
+                objFromDb.StreetAdress = obj.StreetAdress;
+
+            }
         }
 
       

@@ -26,6 +26,7 @@ namespace ZtProject.Models
         public string Name { get; set; }
         [Required]
         public string Surname { get; set; }
+        public bool? CardRequest { get; set; }
 
         public string? StreetAdress { get; set; }
         public string? City { get; set; }

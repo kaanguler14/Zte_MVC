@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Views\CardRequest\" />
     <Folder Include="Areas\Admin\Views\Analyze\" />
     <Folder Include="Controllers\" />
   </ItemGroup>

@@ -1,0 +1,106 @@
+﻿@model List<Account>
+
+<partial name="_Notification" />
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-primary bg-gradient ml-0 py-3">
+        <div class="row">
+
+            <div class="col-12 text-center">
+
+                <h2 class="text-primary bg-white border-black shadow py-2"><i class="bi bi-card-list "></i> Card Request List </h2>
+
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="row pt-2 pb-3">
+                <div class="col-6 ">
+                </div>
+
+                <div class="col-6 text-end">
+                    <a asp-controller="AccountInfo" asp-action="Create" class="btn shadow btn-light text-primary">
+                        Create New Card <i class="bi bi-plus-square"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-striped ">
+
+            <thead>
+
+
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Surname
+                    </th>
+                    <th>
+                        Citizen Number
+                    </th>
+                    <th>
+                        Mail Adress
+                    </th>
+                    <th>
+                        City
+                    </th>
+                    
+                    <th>
+                        Request
+                    </th>
+                    <th>
+
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model.OrderBy(u => u.Id))
+                {
+
+
+                    <tr>
+                        <td>
+                            @obj.Client.Name
+                        </td>
+                        <td>
+                            @obj.Client.Surname
+                        </td>
+                        <td>
+                            @obj.Client.Id
+                        </td>
+                        <td>
+                            @obj.Client.MailAddress
+                        </td>
+                       
+                        <td>
+                            @obj.Client.City
+                        </td>
+                        <td>
+                            @obj.Client.CardRequest
+                        </td>
+                      
+                        <td>
+                            <div class="w-75  btn-group" role="group">
+                                <a asp-controller="CardRequest" asp-action="Create" asp-route-id="@obj.Id" class="btn shadow btn-primary mx-2">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </a>
+
+                            </div>
+
+
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+
+
+        </table>
+    </div>
+</div>
+ </div>
+
+<div class="container"></div>

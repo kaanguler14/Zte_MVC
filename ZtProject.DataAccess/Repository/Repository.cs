@@ -22,6 +22,7 @@ namespace ZtProject.DataAccess.Repository
             _db.Accounts.Include(u => u.Client).Include(u => u.ClientId);
             _db.Card.Include(u => u.BankClient).Include(u => u.BankClientId);
             _db.CardHistory.Include(u => u.Card).Include(u => u.CardId);
+           
         }
 
         public void Add(T entity)

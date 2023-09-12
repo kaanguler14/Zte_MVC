@@ -26,7 +26,7 @@ namespace ZtProject.Models
         [ForeignKey("BankClientId")]
         [ValidateNever]
         public BankClient BankClient { get; set; }
-
+        [ValidateNever]
         public string ImageUrl { get; set; }
 
         

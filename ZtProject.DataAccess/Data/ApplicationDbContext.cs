@@ -15,12 +15,11 @@ namespace ZtProject.DataAccess.Data
         public DbSet<BankClient> Clients { get; set; }
         public DbSet<Card> Card { get; set; }
         public DbSet<CardHistory> CardHistory { get; set; }
-
-
+      
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BankClient>().HasData(
-                new BankClient { Id = 19722290612, Name = "Kaan", Surname = "Güler", MailAddress = "kaangulergs@gmail.com", Password = "password", Number = random.Next(1000, 9999).ToString(), StreetAdress = "Çıkınlar", City = "Bolu", State = "Center", PostalCode = "14100" }
+                new BankClient { Id = 19722290612, Name = "Kaan", Surname = "Güler", MailAddress = "kaangulergs@gmail.com", Password = "password", Number = random.Next(1000, 9999).ToString(), StreetAdress = "Çıkınlar", City = "Bolu", State = "Center", PostalCode = "14100",CardRequest=false }
                 );
 
             modelBuilder.Entity<Account>().HasData(
