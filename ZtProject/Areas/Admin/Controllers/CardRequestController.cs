@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ZtProject.DataAccess.Repository.IRepository;
 using ZtProject.Models;
+using ZtProject.Utility;
 
 namespace ZtProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles =SD.Role_Admin)]
     public class CardRequestController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

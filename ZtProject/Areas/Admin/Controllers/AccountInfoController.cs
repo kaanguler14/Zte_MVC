@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ZtProject.DataAccess.Data;
 using ZtProject.DataAccess.Repository.IRepository;
 using ZtProject.Models;
+using ZtProject.Utility;
 
 namespace ZtProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class AccountInfoController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
