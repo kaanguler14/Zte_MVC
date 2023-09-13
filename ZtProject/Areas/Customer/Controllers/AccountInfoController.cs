@@ -39,10 +39,10 @@ namespace ZtProject.Areas.Customer.Controllers
             Random rand = new Random();
             var RandomInt64 = new Random();
 
-            string countryCode = "TR"; // Replace with the appropriate country code
-            string bankCode = rand.Next(1000, 9999).ToString(); // Replace with the bank code
+            string countryCode = "TR"; 
+            string bankCode = rand.Next(1000, 9999).ToString(); 
 
-            string accountNumber = RandomInt64.NextInt64(100000000000, 999999999999).ToString(); // Replace with the account number
+            string accountNumber = RandomInt64.NextInt64(100000000000, 999999999999).ToString(); 
 
             string iban = GenerateIBAN(countryCode, bankCode, accountNumber);
 

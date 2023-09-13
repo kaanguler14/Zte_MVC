@@ -123,5 +123,18 @@ namespace ZtProject.Areas.Admin.Controllers
             return formattedIBAN;
         }
 
+        #region API CALLS
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<Account> objAccountList = _unitOfWork.Account.GetAll(includeProperties:"Client").ToList();
+
+            return Json(new {data = objAccountList});
+        }
+
+
+        #endregion
+
     }
 }

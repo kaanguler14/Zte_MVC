@@ -38,7 +38,7 @@ namespace ZtProject.Areas.Admin.Controllers
 
 
 
-        public IActionResult Create(long ? id)
+        public IActionResult Create(int ? id)
         {
             if (id == null || id == 0)
             {
@@ -72,6 +72,19 @@ namespace ZtProject.Areas.Admin.Controllers
                 {
                     string fileName =Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string cardPath = Path.Combine(wwwRootPath,@"images\card"); 
+
+                    if(!string.IsNullOrEmpty(obj.ImageUrl)) {
+                        var oldImage = Path.Combine(wwwRootPath, obj.ImageUrl.TrimStart('\\'));
+
+                        if (System.IO.File.Exists(oldImage))
+                        {
+                            System.IO.File.Delete(oldImage);
+                        }
+
+                    }
+
+                    
+
 
                     using (var fileStream = new FileStream(Path.Combine(cardPath, fileName),FileMode.Create))
                     {
