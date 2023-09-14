@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -31,10 +32,10 @@ namespace ZtProject.Models
         public string? AccountStatus { get; set; }
        
 
-        public long ClientId { get; set; }
+        public string ClientId { get; set; }
         [ForeignKey("ClientId")]
         [ValidateNever]
-        public BankClient Client { get; set; }
+        public ApplicationUser Client { get; set; }
 
 
     }
