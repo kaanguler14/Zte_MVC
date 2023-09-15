@@ -21,9 +21,9 @@ namespace ZtProject.Models
         [ValidateNever]
         public string number { get; set; }
 
-        public long limit { get; set; } 
+        public long limit { get; set; }
 
-      
+        [ValidateNever]
         public string BankClientId { get; set; }
         [ForeignKey("BankClientId")]
         [ValidateNever]

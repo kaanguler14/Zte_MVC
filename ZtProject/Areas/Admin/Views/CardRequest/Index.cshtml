@@ -1,4 +1,4 @@
-﻿@model List<Card>
+﻿@model List<ApplicationUser>
 
 <partial name="_Notification" />
 
@@ -17,11 +17,7 @@
                 <div class="col-6 ">
                 </div>
 
-                <div class="col-6 text-end">
-                    <a asp-controller="AccountInfo" asp-action="Create" class="btn shadow btn-light text-primary">
-                        Create New Card <i class="bi bi-plus-square"></i>
-                    </a>
-                </div>
+               
             </div>
         </div>
 
@@ -63,23 +59,23 @@
 
                     <tr>
                         <td>
-                            @obj.BankClient.Name
+                            @obj.Name
                         </td>
                         <td>
-                            @obj.BankClient.Surname
+                            @obj.Surname
                         </td>
                         <td>
-                            @obj.BankClient.Id
+                            @obj.Id
                         </td>
                         <td>
-                            @obj.BankClient.MailAddress
+                            @obj.Email
                         </td>
                        
                         <td>
-                            @obj.BankClient.City
+                            @obj.City
                         </td>
                         <td>
-                            @obj.BankClient.CardRequest
+                            @obj.CardRequest
                         </td>
                       
                         <td>

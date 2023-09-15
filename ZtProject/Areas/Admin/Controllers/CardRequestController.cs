@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using ZtProject.DataAccess.Repository.IRepository;
 using ZtProject.Models;
 using ZtProject.Utility;
@@ -8,6 +9,7 @@ using ZtProject.Utility;
 namespace ZtProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     [Authorize(Roles =SD.Role_Admin)]
     public class CardRequestController : Controller
     {
@@ -21,51 +23,34 @@ namespace ZtProject.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Card> objRequestList = _unitOfWork.Card.GetAll(includeProperties: "BankClient").ToList();
-            long a = 0;
+            List<ApplicationUser> objRequestList = _unitOfWork.ApplicationUser.GetAll(u=>u.CardRequest==true).ToList();
             
-            for (int i = 0; i < objRequestList.Count; i++) { 
-                
-                if (objRequestList[i].BankClient.Id == a)
-                {
-                    objRequestList.Remove(objRequestList[i]);
-                }
-                else
-                {
-                    a = objRequestList[i].BankClient.Id;
-                }
-            }
-
+            
             return View(objRequestList);
         }
 
 
 
-        public IActionResult Create(int ? id)
+        public IActionResult Create()
         {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
 
-            Card CardFromDb = _unitOfWork.Card.Get(u => u.Id == id, includeProperties: "BankClient");
-            if (CardFromDb == null)
-            {
-                return NotFound();
-            }
-            
+       
+            return View();
 
-            return View(CardFromDb);
+
         }
 
         [HttpPost]
         public IActionResult Create(Card obj,IFormFile? file)
         {
 
+           
+            obj.BankClientId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             string number = GenerateRandom16DigitNumber();
-            
+
             obj.number = number;
+        
 
 
             if (ModelState.IsValid)

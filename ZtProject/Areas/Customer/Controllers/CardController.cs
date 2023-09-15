@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using ZtProject.DataAccess.Data;
 using ZtProject.DataAccess.Repository.IRepository;
 using ZtProject.Models;
@@ -7,6 +9,7 @@ using ZtProject.Models;
 namespace ZtProject.Areas.Customer.Controllers
 {
     [Area("Customer")]
+    [Authorize]
     public class CardController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -17,7 +20,7 @@ namespace ZtProject.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            List<Card> objCardList = _unitOfWork.Card.GetAll(includeProperties: "BankClient").ToList();
+            List<Card> objCardList = _unitOfWork.Card.GetAll(u=>u.BankClientId == User.FindFirstValue(ClaimTypes.NameIdentifier), includeProperties: "BankClient").ToList();
 
             return View(objCardList);
         }
@@ -51,11 +54,13 @@ namespace ZtProject.Areas.Customer.Controllers
 
             obj.number = number;
 
+            obj.BankClientId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             if (ModelState.IsValid)
             {
                 _unitOfWork.Card.Add(obj);
                 _unitOfWork.Save();
-                TempData["success"] = "Category Creaeted Successfully";
+                TempData["success"] = "Thanks for Card Request";
                 return RedirectToAction("Index");
             }
 
@@ -88,6 +93,36 @@ namespace ZtProject.Areas.Customer.Controllers
             if (ModelState.IsValid)
             {
                 _unitOfWork.Card.Update(obj);
+                _unitOfWork.Save();
+                TempData["success"] = "Category Updated Successfully";
+                return RedirectToAction("Index");
+            }
+
+            return View();
+
+
+        }
+        public IActionResult CardRequest()
+        {
+            string a =User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Console.WriteLine(a);
+            ApplicationUser ClientFromDb = _unitOfWork.ApplicationUser.Get(u => u.Id == User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if(ClientFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(ClientFromDb);
+        }
+
+        [HttpPost]
+        public IActionResult CardRequest(ApplicationUser obj)
+        {
+            obj.CardRequest =true;
+
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.ApplicationUser.Update(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "Category Updated Successfully";
                 return RedirectToAction("Index");

@@ -10,7 +10,9 @@ namespace ZtProject.Models
 {
     public class ApplicationUser : IdentityUser
     {
+      
 
+       
 
         [Required]
         public string CitizenID { get; set; }

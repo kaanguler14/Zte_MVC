@@ -30,8 +30,8 @@ namespace ZtProject.Models
         [DisplayName("Account Status")]
       
         public string? AccountStatus { get; set; }
-       
 
+        [ValidateNever]
         public string ClientId { get; set; }
         [ForeignKey("ClientId")]
         [ValidateNever]

@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 using ZtProject.DataAccess.Data;
 using ZtProject.DataAccess.Repository.IRepository;
 using ZtProject.Models;
@@ -7,6 +10,7 @@ using ZtProject.Models;
 namespace ZtProject.Areas.Customer.Controllers
 {
     [Area("Customer")]
+    [Authorize]
     public class AccountInfoController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -15,9 +19,11 @@ namespace ZtProject.Areas.Customer.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? id)
         {
-            List<Account> objAccountList = _unitOfWork.Account.GetAll(includeProperties:"Client").ToList();
+           
+
+            List<Account> objAccountList = _unitOfWork.Account.GetAll(u => u.ClientId == User.FindFirstValue(ClaimTypes.NameIdentifier), includeProperties: "Client").ToList();
 
          
 
@@ -49,7 +55,11 @@ namespace ZtProject.Areas.Customer.Controllers
             obj.IBAN = iban;
             obj.AccountBalance = 0;
             obj.OpeningDate = DateTime.Now;
-           
+            obj.ClientId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+
+
+
 
             if (ModelState.IsValid)
             {

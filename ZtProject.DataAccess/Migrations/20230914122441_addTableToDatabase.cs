@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ZtProject.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class addIdentityTables : Migration
+    public partial class addTableToDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,6 +30,15 @@ namespace ZtProject.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CitizenID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CardRequest = table.Column<bool>(type: "bit", nullable: true),
+                    StreetAdress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -51,6 +60,28 @@ namespace ZtProject.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Clients",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Number = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CardRequest = table.Column<bool>(type: "bit", nullable: true),
+                    StreetAdress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -67,6 +98,31 @@ namespace ZtProject.DataAccess.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Accounts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IBAN = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AccountType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AccountBalance = table.Column<double>(type: "float", nullable: false),
+                    OpeningDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ClosingDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AccountStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ClientId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Accounts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Accounts_AspNetUsers_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -96,8 +152,8 @@ namespace ZtProject.DataAccess.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -141,8 +197,8 @@ namespace ZtProject.DataAccess.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -156,19 +212,56 @@ namespace ZtProject.DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.UpdateData(
-                table: "Accounts",
-                keyColumn: "Id",
-                keyValue: 1,
-                column: "OpeningDate",
-                value: new DateTime(2023, 9, 13, 10, 59, 31, 212, DateTimeKind.Local).AddTicks(9927));
+            migrationBuilder.CreateTable(
+                name: "Card",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    number = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    limit = table.Column<long>(type: "bigint", nullable: false),
+                    BankClientId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Card", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Card_AspNetUsers_BankClientId",
+                        column: x => x.BankClientId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
-            migrationBuilder.UpdateData(
-                table: "Clients",
-                keyColumn: "Id",
-                keyValue: 19722290612L,
-                column: "Number",
-                value: "2213");
+            migrationBuilder.CreateTable(
+                name: "CardHistory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PlaceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Amount = table.Column<long>(type: "bigint", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CardId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CardHistory", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CardHistory_Card_CardId",
+                        column: x => x.CardId,
+                        principalTable: "Card",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Accounts_ClientId",
+                table: "Accounts",
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -208,11 +301,24 @@ namespace ZtProject.DataAccess.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Card_BankClientId",
+                table: "Card",
+                column: "BankClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CardHistory_CardId",
+                table: "CardHistory",
+                column: "CardId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Accounts");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -229,24 +335,19 @@ namespace ZtProject.DataAccess.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CardHistory");
+
+            migrationBuilder.DropTable(
+                name: "Clients");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Card");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.UpdateData(
-                table: "Accounts",
-                keyColumn: "Id",
-                keyValue: 1,
-                column: "OpeningDate",
-                value: new DateTime(2023, 9, 11, 17, 11, 47, 533, DateTimeKind.Local).AddTicks(7889));
-
-            migrationBuilder.UpdateData(
-                table: "Clients",
-                keyColumn: "Id",
-                keyValue: 19722290612L,
-                column: "Number",
-                value: "9487");
         }
     }
 }

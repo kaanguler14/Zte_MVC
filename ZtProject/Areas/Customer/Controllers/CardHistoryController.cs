@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ZtProject.DataAccess.Repository.IRepository;
 using ZtProject.Models;
 
 namespace ZtProject.Areas.Customer.Controllers
 {
     [Area("Customer")]
+    [Authorize]
     public class CardHistoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

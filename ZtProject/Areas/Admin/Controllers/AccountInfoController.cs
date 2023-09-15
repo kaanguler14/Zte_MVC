@@ -9,6 +9,7 @@ using ZtProject.Utility;
 namespace ZtProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     [Authorize(Roles = SD.Role_Admin)]
     public class AccountInfoController : Controller
     {
@@ -90,7 +91,7 @@ namespace ZtProject.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                Console.WriteLine(obj.Client.MailAddress);
+                Console.WriteLine(obj.Client.Email);
                 _unitOfWork.Account.Update(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "Category Updated Successfully";

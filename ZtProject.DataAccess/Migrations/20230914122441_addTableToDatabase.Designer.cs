@@ -12,8 +12,8 @@ using ZtProject.DataAccess.Data;
 namespace ZtProject.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230913075931_addIdentityTables")]
-    partial class addIdentityTables
+    [Migration("20230914122441_addTableToDatabase")]
+    partial class addTableToDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,6 +89,10 @@ namespace ZtProject.DataAccess.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -140,6 +144,10 @@ namespace ZtProject.DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -170,12 +178,10 @@ namespace ZtProject.DataAccess.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -212,12 +218,10 @@ namespace ZtProject.DataAccess.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -246,8 +250,9 @@ namespace ZtProject.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("ClientId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ClosingDate")
                         .HasColumnType("datetime2");
@@ -264,18 +269,6 @@ namespace ZtProject.DataAccess.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("Accounts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AccountBalance = 0.0,
-                            AccountStatus = "Passive",
-                            AccountType = "MMA",
-                            ClientId = 19722290612L,
-                            IBAN = "TR1477895786321484635789631",
-                            OpeningDate = new DateTime(2023, 9, 13, 10, 59, 31, 212, DateTimeKind.Local).AddTicks(9927)
-                        });
                 });
 
             modelBuilder.Entity("ZtProject.Models.BankClient", b =>
@@ -324,22 +317,6 @@ namespace ZtProject.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Clients");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 19722290612L,
-                            CardRequest = false,
-                            City = "Bolu",
-                            MailAddress = "kaangulergs@gmail.com",
-                            Name = "Kaan",
-                            Number = "2213",
-                            Password = "password",
-                            PostalCode = "14100",
-                            State = "Center",
-                            StreetAdress = "Çıkınlar",
-                            Surname = "Güler"
-                        });
                 });
 
             modelBuilder.Entity("ZtProject.Models.Card", b =>
@@ -350,8 +327,9 @@ namespace ZtProject.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<long>("BankClientId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("BankClientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -373,26 +351,6 @@ namespace ZtProject.DataAccess.Migrations
                     b.HasIndex("BankClientId");
 
                     b.ToTable("Card");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BankClientId = 19722290612L,
-                            ImageUrl = "",
-                            Name = "Bankkart",
-                            limit = 10000L,
-                            number = "8975050006755148"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BankClientId = 19722290612L,
-                            ImageUrl = "",
-                            Name = "Bankkart",
-                            limit = 10000L,
-                            number = "7355051246755148"
-                        });
                 });
 
             modelBuilder.Entity("ZtProject.Models.CardHistory", b =>
@@ -425,26 +383,40 @@ namespace ZtProject.DataAccess.Migrations
                     b.HasIndex("CardId");
 
                     b.ToTable("CardHistory");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Amount = 145L,
-                            CardId = 1,
-                            Date = new DateTime(2023, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PlaceName = "Yemek Sepeti",
-                            Type = "Food"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Amount = 200L,
-                            CardId = 2,
-                            Date = new DateTime(2023, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PlaceName = "Migros ",
-                            Type = "Market"
-                        });
+            modelBuilder.Entity("ZtProject.Models.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<bool?>("CardRequest")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CitizenID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetAdress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -500,7 +472,7 @@ namespace ZtProject.DataAccess.Migrations
 
             modelBuilder.Entity("ZtProject.Models.Account", b =>
                 {
-                    b.HasOne("ZtProject.Models.BankClient", "Client")
+                    b.HasOne("ZtProject.Models.ApplicationUser", "Client")
                         .WithMany()
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -511,7 +483,7 @@ namespace ZtProject.DataAccess.Migrations
 
             modelBuilder.Entity("ZtProject.Models.Card", b =>
                 {
-                    b.HasOne("ZtProject.Models.BankClient", "BankClient")
+                    b.HasOne("ZtProject.Models.ApplicationUser", "BankClient")
                         .WithMany()
                         .HasForeignKey("BankClientId")
                         .OnDelete(DeleteBehavior.Cascade)

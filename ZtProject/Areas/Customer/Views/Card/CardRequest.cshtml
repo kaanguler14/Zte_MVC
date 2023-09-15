@@ -1,0 +1,49 @@
+﻿@model ApplicationUser
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-white bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="shadow col-12 text-center">
+                <h2 class="text-primary py-2 card shadow ">Card Request</h2>
+            </div>
+
+        </div>
+        <div class="card-body  p-4">
+            <form method="post">
+                
+              
+                <input asp-for="Id" hidden />
+                <input asp-for="CitizenID" hidden />
+                <input asp-for="Name" hidden />
+                <input asp-for="Email" hidden />
+                <input asp-for="Surname" hidden />
+                <input asp-for="StreetAdress" hidden />
+                <input asp-for="City" hidden />
+                <input asp-for="State" hidden />
+                <input asp-for="PostalCode" hidden />
+                <input asp-for="PhoneNumber" hidden />
+
+                <div class="row mt-3">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-secondary form-control">Request</button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-controller="Card" asp-action="Index" class="btn  btn-secondary form-control">
+                            Back To List
+                        </a>
+                    </div>
+                </div>
+
+
+             </form>
+         </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+
+    }
+
+            }
