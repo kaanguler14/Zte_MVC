@@ -11,8 +11,6 @@
     </div>
     <div class="card-body p-4">
         <form method="post" class="row" enctype="multipart/form-data">
-            
-         
 
             <div class="border bg-primary p-3 mt-4" >
 
@@ -37,7 +35,7 @@
 
                 <div class="row">
                     <div class="col-6 col-md-3">
-                        <button type="submit" class="btn btn-secondary form-control">Create</button>
+                        <button type="submit" asp-route-id="@ViewBag.Id" class="btn btn-secondary form-control">Create</button>
                     </div>
                     <div class="col-6 col-md-3">
                         <a asp-controller="CardRequest" asp-action="Index" class="btn  btn-secondary form-control">
@@ -59,6 +57,6 @@
 
 @section Scripts{
     @{
-        <partial name="_ValidationScriptsPartial" />
+        <partial name="_ValidationScriptsPartial"/>
     }
 }

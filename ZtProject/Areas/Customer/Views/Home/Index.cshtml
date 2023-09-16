@@ -1,8 +1,39 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model Tuple<List<Account>, List<Card>>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row">
+    <div class="col-md-6">
+        <!-- Hesap Bilgileri -->
+        <div class="card">
+            <div class="card-header">
+                Hesaplar
+            </div>
+            <div class="card-body">
+                <ul>
+                    @foreach (var account in Model.Item1)
+                    {
+                        <li>IBAN: @account.IBAN</li>
+                        <!-- Diğer hesap bilgilerini burada gösterin -->
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <!-- Kart Bilgileri -->
+        <div class="card">
+            <div class="card-header">
+                Kartlar
+            </div>
+            <div class="card-body">
+                <ul>
+                    @foreach (var card in Model.Item2)
+                    {
+                        <li>Kart Numarası: @card.number</li>
+                        <!-- Diğer kart bilgilerini burada gösterin -->
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>

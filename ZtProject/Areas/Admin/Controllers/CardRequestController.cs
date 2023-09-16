@@ -31,26 +31,26 @@ namespace ZtProject.Areas.Admin.Controllers
 
 
 
-        public IActionResult Create()
-        {
-
-       
+          public IActionResult Create(string ? id)
+            {
+            ViewBag.Id = id;
+         
             return View();
 
-
+      
         }
 
         [HttpPost]
-        public IActionResult Create(Card obj,IFormFile? file)
+        public IActionResult Create(Card obj,string id,IFormFile? file)
         {
 
-           
-            obj.BankClientId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            
 
             string number = GenerateRandom16DigitNumber();
-
+           
             obj.number = number;
-        
+            obj.BankClientId = id;
 
 
             if (ModelState.IsValid)
@@ -70,9 +70,6 @@ namespace ZtProject.Areas.Admin.Controllers
                         }
 
                     }
-
-                    
-
 
                     using (var fileStream = new FileStream(Path.Combine(cardPath, fileName),FileMode.Create))
                     {

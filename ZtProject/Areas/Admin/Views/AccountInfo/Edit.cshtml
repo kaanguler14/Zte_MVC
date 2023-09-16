@@ -21,7 +21,11 @@
                 <div class="border shadow border-black bg-primary p-3 mt-4">
                    
                
-
+                    <div class="mb-3 row p-1 text-light">
+                        <label asp-for="AccountBalance" class="p-0"></label>
+                        <input asp-for="AccountBalance" class="form-control" />
+                        <span asp-validation-for="AccountBalance" text-dark></span>
+                    </div>
 
 
                     <div class="mb-3 row p-1 text-light">

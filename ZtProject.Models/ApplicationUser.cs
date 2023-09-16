@@ -28,5 +28,7 @@ namespace ZtProject.Models
         public string? State { get; set; }
         public string? PostalCode { get; set; }
 
+        public List<Card> ? cards { get; set; }
+
     }
 }

@@ -37,9 +37,6 @@ namespace ZtProject.Areas.Admin.Controllers
         public IActionResult Create(Account obj)
         {
 
-
-
-
             Random rand = new Random();
             var RandomInt64 = new Random();
 
