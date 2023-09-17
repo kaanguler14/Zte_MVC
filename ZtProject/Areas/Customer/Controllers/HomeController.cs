@@ -15,10 +15,10 @@ namespace ZtProject.Areas.Customer.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork _unitOfWork;
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,IUnitOfWork unitOfWork)
         {
             _logger = logger;
-            _unitOfWork = _unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()

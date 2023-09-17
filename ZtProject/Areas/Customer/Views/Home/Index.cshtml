@@ -1,29 +1,34 @@
 ﻿@model Tuple<List<Account>, List<Card>>
 
 <div class="row">
-    <div class="col-md-6">
-        <!-- Hesap Bilgileri -->
-        <div class="card">
-            <div class="card-header">
-                Hesaplar
+    <div class="col-md-4">
+    
+        <div border border-shadow class="card">
+            <div class="card-header bg-white text-primary">
+                My Accounts
             </div>
-            <div class="card-body">
+            <div class="card-body bg-primary">
                 <ul>
                     @foreach (var account in Model.Item1)
                     {
-                        <li>IBAN: @account.IBAN</li>
-                        <!-- Diğer hesap bilgilerini burada gösterin -->
+                        <li class="text-white">IBAN: @account.IBAN</li>
+                        <li class="text-white">Account Balance: @account.AccountBalance</li>
+                        <li class="text-white">Account Status: @account.AccountStatus</li>
+                        <li class="text-white">Account Type: @account.AccountType</li>
+                        <li class="text-white">Opening Date: @account.OpeningDate</li>
+                        <hr class="text-white" />
+                        
                     }
                 </ul>
             </div>
         </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-8">
         <!-- Kart Bilgileri -->
         <div class="card">
-            <div class="card-header">
-                Kartlar
+            <div class="card-header text-primary">
+                My Card
             </div>
             <div class="card-body">
                 <ul>
